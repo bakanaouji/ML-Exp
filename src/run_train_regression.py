@@ -10,11 +10,11 @@ def main():
 
     args = parser.parse_args()
 
-    # initialize model
-    model = DenseNetwork(2, 1, [16, 8])
-
     # initialize function
     func = SphereFunction(2)
+
+    # initialize model
+    model = DenseNetwork(func.input_dimension(), func.output_dimension(), [64])
 
     trainer = Trainer(args, model, func)
     trainer.train()

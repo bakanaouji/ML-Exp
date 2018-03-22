@@ -10,3 +10,9 @@ class SphereFunction(object):
         y_data = np.sum(x_data ** 2, axis=1)
         y_data = y_data.reshape([y_data.size, 1])
         return x_data, y_data
+
+    def input_dimension(self):
+        return self.n
+
+    def output_dimension(self):
+        return 1
