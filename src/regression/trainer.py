@@ -1,3 +1,5 @@
+import pandas as pd
+
 from utils.callbacks import WeightHistory
 from utils.data_plotting import plot_scatter_3d
 from keras import backend as K
@@ -22,3 +24,7 @@ class Trainer(object):
                         y_data)
         plot_scatter_3d('../data/predict.pdf', x_data[:, 0], x_data[:, 1],
                         y_predict)
+
+        for i in range(len(history.weights)):
+            weight = pd.DataFrame(history.weights[i])
+            weight.to_csv('../data/layer' + str(i) + '.csv')

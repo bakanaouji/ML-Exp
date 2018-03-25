@@ -18,7 +18,10 @@ class WeightHistory(keras.callbacks.Callback):
         super().__init__()
         self.sess = sess
         self.model = model
-        self.weights = []
+        self.weights = [[] for _ in range(len(self.model.trainable_weights))]
 
     def on_batch_end(self, batch, logs={}):
-        self.weights.append(self.sess.run(self.model.trainable_weights))
+        weights = self.sess.run(self.model.trainable_weights)
+        for i in range(len(weights)):
+            weight = weights[i].flatten()
+            self.weights[i].append(weight)
