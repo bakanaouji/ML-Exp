@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 
 from utils.callbacks import WeightHistory
@@ -13,6 +14,9 @@ class Trainer(object):
         # initialize function
         self.func = func
 
+        # parameter of experiment
+        self.save_weights_log = args.save_weights_log
+
     def train(self):
         sess = K.get_session()
         history = WeightHistory(sess, self.model.model)
@@ -25,6 +29,10 @@ class Trainer(object):
         plot_scatter_3d('../data/predict.pdf', x_data[:, 0], x_data[:, 1],
                         y_predict)
 
-        for i in range(len(history.weights)):
-            weight = pd.DataFrame(history.weights[i])
-            weight.to_csv('../data/layer' + str(i) + '.csv')
+        if self.save_weights_log:
+            for i in range(len(history.weights)):
+                save_weight_path = '../data/layer' + str(i)
+                if not os.path.exists(save_weight_path):
+                    os.makedirs(save_weight_path)
+                weight = pd.DataFrame(history.weights[i])
+                weight.to_csv(save_weight_path + '/weight.csv')

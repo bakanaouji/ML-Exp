@@ -8,6 +8,10 @@ from regression.trainer import Trainer
 def main():
     parser = argparse.ArgumentParser(description="Train Regression")
 
+    # setting of training
+    parser.add_argument('--save_weights_log', action='store_true',
+                        help='Whether to save weights transition')
+
     args = parser.parse_args()
 
     # initialize function
@@ -16,6 +20,7 @@ def main():
     # initialize model
     model = DenseNetwork(func.input_dimension(), func.output_dimension(), [64])
 
+    # run train
     trainer = Trainer(args, model, func)
     trainer.train()
 
