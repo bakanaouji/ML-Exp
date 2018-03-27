@@ -16,7 +16,7 @@ def main():
     parser.add_argument('--y_max', type=float, default=2.0,
                         help='Max value of y axis')
     parser.add_argument('--save_path',
-                        default='../data/layer3/weight.csv')
+                        default='../data/layer0/weight.csv')
 
     args = parser.parse_args()
 
