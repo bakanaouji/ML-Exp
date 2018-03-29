@@ -1,4 +1,4 @@
-from utils.callbacks import WeightHistory
+from utils.callbacks import WeightHistory, LossHistory
 from utils.data_plotting import plot_scatter_3d
 from keras import backend as K
 
@@ -13,7 +13,8 @@ class Trainer(object):
 
     def train(self):
         sess = K.get_session()
-        callbacks = [WeightHistory(sess, self.model.model, '../data')]
+        callbacks = [WeightHistory(sess, self.model.model, '../data'),
+                     LossHistory('../data')]
         x_data, y_data = self.func.sample(10000)
         self.model.model.fit(x_data, y_data, batch_size=16, epochs=10,
                              callbacks=callbacks)
