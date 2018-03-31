@@ -38,6 +38,6 @@ def import_module(name, package=None):
 
 def load_class(name):
     dot = name.rindex('.')
-    module, classname = name[:dot], name[dot + 1:]
+    module, class_name = name[:dot], name[dot + 1:]
     mod = import_module(module)
-    return getattr(mod, classname)
+    return getattr(mod, class_name)

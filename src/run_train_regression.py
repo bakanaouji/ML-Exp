@@ -9,8 +9,9 @@ def main():
     parser = argparse.ArgumentParser(description="Train Regression")
 
     # setting of training
-    parser.add_argument('--save_weights_log', action='store_true',
-                        help='Whether to save weights transition')
+    parser.add_argument('--callbacks', nargs='+', type=str,
+                        default=['utils.callbacks.WeightHistory',
+                                 'utils.callbacks.LossHistory'])
 
     args = parser.parse_args()
 

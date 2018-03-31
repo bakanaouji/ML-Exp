@@ -3,11 +3,18 @@ import keras
 import pandas as pd
 
 
-class LossHistory(keras.callbacks.Callback):
-    def __init__(self, save_path):
+class CallbackBase(keras.callbacks.Callback):
+    def __init__(self, sess, model, save_path):
         super().__init__()
-        self.losses = []
+        self.sess = sess
+        self.model = model
         self.save_path = save_path
+
+
+class LossHistory(CallbackBase):
+    def __init__(self, sess, model, save_path):
+        super().__init__(sess, model, save_path)
+        self.losses = []
 
     def on_train_begin(self, logs={}):
         self.losses = []
@@ -22,13 +29,12 @@ class LossHistory(keras.callbacks.Callback):
         weight.to_csv(self.save_path + '/loss.csv')
 
 
-class WeightHistory(keras.callbacks.Callback):
+class WeightHistory(CallbackBase):
     def __init__(self, sess, model, save_path):
-        super().__init__()
+        super().__init__(sess, model, save_path)
         self.sess = sess
         self.model = model
         self.weights = [[] for _ in range(len(self.model.trainable_weights))]
-        self.save_path = save_path
 
     def on_batch_end(self, batch, logs={}):
         weights = self.sess.run(self.model.trainable_weights)
