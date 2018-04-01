@@ -1,4 +1,6 @@
 import argparse
+import numpy as np
+import tensorflow as tf
 
 from models.nueral_networks import DenseNetwork
 from regression.trainer import Trainer
@@ -16,8 +18,14 @@ def main():
                         default='regression.functions.SphereFunction')
     parser.add_argument('--save_path', default='../data',
                         help='Path to save log.')
+    parser.add_argument('--seed', type=int, default=-1, help='Random seed.')
 
     args = parser.parse_args()
+
+    # set random seed
+    if args.seed >= 0:
+        np.random.seed(args.seed)
+        tf.set_random_seed(np.random.randint(2 ** 32))
 
     # initialize function
     func = load_class(args.target_func)(2)
