@@ -12,8 +12,10 @@ def main():
     parser.add_argument('--callbacks', nargs='+', type=str,
                         default=['utils.callbacks.WeightHistory',
                                  'utils.callbacks.LossHistory'])
-    parser.add_argument('--target_func', type=str, default='regression.functions.SphereFunction')
-    parser.add_argument('--save_path', default='../data', help='Path to save log.')
+    parser.add_argument('--target_func', type=str,
+                        default='regression.functions.SphereFunction')
+    parser.add_argument('--save_path', default='../data',
+                        help='Path to save log.')
 
     args = parser.parse_args()
 
