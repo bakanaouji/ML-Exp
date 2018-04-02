@@ -17,7 +17,10 @@ def plot_data(save_path, x_min, x_max, y_min, y_max):
         plt.grid()
         plt.xlim(x_min, x_max)
         plt.ylim(y_min, y_max)
-        plt.savefig(save_path + '_' + str(i) + '.pdf')
+        plt.savefig(save_path + '_' + str(i)
+                    + '_[' + str(x_min) + '-' + str(x_max) + ']'
+                    + '_[' + str(y_min) + '-' + str(y_max) + ']'
+                    '.pdf')
         plt.close()
 
 

@@ -20,7 +20,10 @@ class LossHistory(CallbackBase):
         self.losses = []
 
     def on_epoch_end(self, epoch, logs=None):
-        self.losses.append([logs.get('loss'), logs.get('val_loss')])
+        if 'val_loss' in logs:
+            self.losses.append([logs.get('loss'), logs.get('val_loss')])
+        else:
+            self.losses.append(logs.get('loss'))
 
     def on_train_end(self, logs=None):
         if not os.path.exists(self.save_path):
