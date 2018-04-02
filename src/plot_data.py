@@ -9,7 +9,7 @@ def main():
     # setting
     parser.add_argument('--x_min', type=float, default=0.0,
                         help='Min value of x axis')
-    parser.add_argument('--x_max', type=float, default=6500.0,
+    parser.add_argument('--x_max', type=float, default=50.0,
                         help='Max value of x axis')
     parser.add_argument('--y_min', type=float, default=-2.0,
                         help='Min value of y axis')

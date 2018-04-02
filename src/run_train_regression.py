@@ -11,11 +11,13 @@ def main():
     parser = argparse.ArgumentParser(description="Train Regression")
 
     # setting of training
-    parser.add_argument('--data_size', type=int, default=10000,
-                        help='Number of data.')
+    parser.add_argument('--train_size', type=int, default=10000,
+                        help='Number of train data.')
+    parser.add_argument('--test_size', type=int, default=1000,
+                        help='Number of test data.')
     parser.add_argument('--batch_size', type=int, default=16,
                         help='Number of samples per gradient update.')
-    parser.add_argument('--epochs', type=int, default=10,
+    parser.add_argument('--epochs', type=int, default=50,
                         help='Number of epochs to train the model.')
     parser.add_argument('--callbacks', nargs='+', type=str,
                         default=['utils.callbacks.WeightHistory',

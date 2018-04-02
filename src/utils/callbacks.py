@@ -19,14 +19,14 @@ class LossHistory(CallbackBase):
     def on_train_begin(self, logs={}):
         self.losses = []
 
-    def on_batch_end(self, batch, logs={}):
-        self.losses.append(logs.get('loss'))
+    def on_epoch_end(self, epoch, logs=None):
+        self.losses.append([logs.get('loss'), logs.get('val_loss')])
 
     def on_train_end(self, logs=None):
         if not os.path.exists(self.save_path):
             os.makedirs(self.save_path)
-        weight = pd.DataFrame(self.losses)
-        weight.to_csv(self.save_path + '/loss.csv')
+        loss = pd.DataFrame(self.losses)
+        loss.to_csv(self.save_path + '/loss.csv')
 
 
 class WeightHistory(CallbackBase):
@@ -36,7 +36,7 @@ class WeightHistory(CallbackBase):
         self.model = model
         self.weights = [[] for _ in range(len(self.model.trainable_weights))]
 
-    def on_batch_end(self, batch, logs={}):
+    def on_epoch_end(self, epoch, logs=None):
         weights = self.sess.run(self.model.trainable_weights)
         for i in range(len(weights)):
             weight = weights[i].flatten()
